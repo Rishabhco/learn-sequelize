@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
+  const User = sequelize.define("user", {
     uuid: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    phone: {
+    age: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
@@ -24,8 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: "created_at",
     updatedAt: "updated_at",
   });
-  User.sync({ force: true });
-  console.log('The table for the User model was just (re)created!');
   return User;
 };
  

@@ -1,8 +1,9 @@
-const { Sequelize } = require("sequelize");
+const { Sequelize,Model,DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize("blogSys", "postgres", "system", {
   host: "localhost",
   dialect: "postgres",
+  logging:false
 });
 
 sequelize.authenticate().then(() => {
@@ -11,9 +12,15 @@ sequelize.authenticate().then(() => {
    console.error("Unable to connect to the database:", error);
 })
 
-const db={};
+let db={};
 db.Sequelize=Sequelize;
 db.sequelize=sequelize;
-db.users=require('../models/userModels')(sequelize,Sequelize);
+db.users=require('../models/userModels')(sequelize,DataTypes);
 
-module.export=sequelize
+db.sequelize.sync({force:false}).then(()=>{
+  console.log("Database has been synced");
+}).catch(err=>{
+  console.log("Error in syncing database");
+});
+
+module.exports=db;
