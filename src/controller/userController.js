@@ -20,13 +20,22 @@ const createUser = async (req, res) => {
     // });
     // await data.save();
 
-    // TO CREATE THE USERS IN BULK AMOUNT USE bulkCreate() method.
-
     let data =await  Users.create({
       name: req.body.name,
       email: req.body.email,
       age: req.body.age,
     });
+
+    // TO CREATE THE USERS IN BULK AMOUNT USE bulkCreate() method.
+
+    // To allow only some fields to be inserted in database.
+
+    // let data =await  Users.create({
+    //  ...req.body
+    // },{
+    //   fields:['name','email']
+    // });
+
     res.status(200).send({
       message: "User Created",
       data: data.toJSON(),

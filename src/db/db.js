@@ -1,7 +1,8 @@
 const { Sequelize,Model,DataTypes } = require("sequelize");
+const secrets=require('../../secrets');
 
-const sequelize = new Sequelize("blogSys", "postgres", "system", {
-  host: "localhost",
+const sequelize = new Sequelize(secrets.database, secrets.username, secrets.password, {
+  host: secrets.host,
   dialect: "postgres",
   logging:false
 });
