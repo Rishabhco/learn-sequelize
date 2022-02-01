@@ -9,5 +9,6 @@ router.patch('/updateUser/:id',userController.updateUser);
 router.delete('/deleteUser/:id',userController.deleteUser);
 router.post('/findData',userController.findData);
 router.post('/setterGetter',userController.setterGetter);
+router.get('/rawQuery',userController.rawQuery);
 
 module.exports=router;

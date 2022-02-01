@@ -161,6 +161,36 @@ const setterGetter=async(req,res)=>{
   }
 };
 
+const rawQuery=async(req,res)=>{
+  try{ 
+    const users=await d.sequelize.query("Select * from users where name=:name",{
+      type:d.sequelize.QueryTypes.SELECT,
+      // model:User,
+      // mapToModel:true,
+      // raw:true,
+      // replacements:{ name:req.body.name}    name=:name
+      // replacements:[req.body.name]  name=?
+      // replacements:{name:req.body.name}  name IN (:name)
+      // replacements:{name:req.body.name}  name IN (:name)
+      
+      // replacements:{searchEmail:'%@gmail.com'}  email like :searchEmail
+
+      // bind:{gender:'male'}
+    })
+
+    res.status(200).send({
+      "message":"User found ",
+      data:users,
+    })
+
+  }catch(error){
+    res.status(400).send({
+      "message":"Error has occured",
+      error,
+    })
+  }
+}
+
 const updateUser = async (req, res) => {
   try {
     let data = await Users.update(
@@ -213,5 +243,6 @@ module.exports = {
   deleteUser,
   findAllUser,
   findData,
-  setterGetter
+  setterGetter,
+  rawQuery
 };
