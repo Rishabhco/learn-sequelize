@@ -1,4 +1,4 @@
-const { Sequelize, Op } = require("sequelize");
+const { Sequelize, Op,QueryTypes } = require("sequelize");
 const db = require("../db/db");
 const Users = db.users;
 
@@ -164,7 +164,7 @@ const setterGetter=async(req,res)=>{
 const rawQuery=async(req,res)=>{
   try{ 
     const users=await d.sequelize.query("Select * from users where name=:name",{
-      type:d.sequelize.QueryTypes.SELECT,
+      type:QueryTypes.SELECT,
       // model:User,
       // mapToModel:true,
       // raw:true,
