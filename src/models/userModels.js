@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     age: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
+      validate:{
+        min:0,
+        max:100,
+        msg:'Age must be between 0 and 100'
+      }
     },
   },{
     timestamps: true,
