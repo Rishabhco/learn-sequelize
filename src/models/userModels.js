@@ -8,11 +8,17 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      get(){
+        return this.getDataValue("name")+this.email;
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      set(value) {
+        this.setDataValue("email",value+' name');
+      },
     },
     age: {
       type: DataTypes.INTEGER,

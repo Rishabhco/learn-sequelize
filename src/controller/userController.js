@@ -112,7 +112,7 @@ const findData = async (req, res) => {
     // let data=await Users.findOne({});
     
     // Find all users
-    // let data=await Users.findAll({});
+    let data=await Users.findAll({});
 
      // Find User by primary key
     // let data=await Users.findByPk();
@@ -130,7 +130,7 @@ const findData = async (req, res) => {
     // let data =await  Users.findAndCountAll({
     //   where: { name: "Ramesh" },
     // });
-    
+
     res.status(200).send({
       message: "User Created or found",
       data: data,
@@ -141,6 +141,23 @@ const findData = async (req, res) => {
       message: "Error has occured",
       error: error,
     });
+  }
+};
+
+const setterGetter=async(req,res)=>{
+  try{
+      let data =await Users.create({
+        ...req.body
+      });
+      res.status(200).send({
+        "message":"User list",
+        data:data
+      })
+  }catch(error){
+    res.status(400).send({
+      "message":"Error has occured",
+      error,
+    })
   }
 };
 
@@ -195,5 +212,6 @@ module.exports = {
   updateUser,
   deleteUser,
   findAllUser,
-  findData
+  findData,
+  setterGetter
 };

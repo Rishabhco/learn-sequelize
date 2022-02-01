@@ -8,5 +8,6 @@ router.get('/findAllUser',userController.findAllUser);
 router.patch('/updateUser/:id',userController.updateUser);
 router.delete('/deleteUser/:id',userController.deleteUser);
 router.post('/findData',userController.findData);
+router.post('/setterGetter',userController.setterGetter);
 
 module.exports=router;
