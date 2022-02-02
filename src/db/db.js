@@ -19,8 +19,9 @@ db.sequelize=sequelize;
 db.users=require('../models/userModels')(sequelize,DataTypes);
 db.posts=require('../models/postsModels')(sequelize,DataTypes);
 
-db.users.hasOne(db.posts,{foreignKey:'user_id'});
-db.posts.belongsTo(db.users,{foreignKey:'user_id'});
+db.users.hasOne(db.posts,{foreignKey:'user_id',as:"postDetails"});
+// db.users.hasMany(db.posts,{foreignKey:'user_id',as:"postDetails"});
+db.posts.belongsTo(db.users,{foreignKey:'user_id',as:"userDetails"});
 
 db.sequelize.sync({force:false}).then(()=>{
   console.log("Database has been synced");

@@ -240,6 +240,7 @@ const oneToOne=async(req,res)=>{
     let oneToOneDetail=await Users.findAll({
       include:[{
         model:Posts,
+        as:'postDetails',
         attributes:['id','title','body']
       }],
       where:{

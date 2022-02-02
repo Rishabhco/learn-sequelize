@@ -41,6 +41,7 @@ const belongsToUser = async (req, res) => {
     let belongsToUserDetails=await Posts.findAll({
         include:[{
           model:Users,
+          as:"userDetails",
           attributes:['uuid','name','email']
         }],
         where:{
