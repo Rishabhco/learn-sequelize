@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       validate:{
         min:0,
         max:100,
-        msg:'Age must be between 0 and 100'
       }
     },
   },{

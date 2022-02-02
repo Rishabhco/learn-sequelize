@@ -1,6 +1,7 @@
 const { Sequelize, Op,QueryTypes } = require("sequelize");
 const db = require("../db/db");
 const Users = db.users;
+const Posts = db.posts;
 
 const home = (req, res) => {
   try {
@@ -22,9 +23,7 @@ const createUser = async (req, res) => {
     // await data.save();
 
     let data = await Users.create({
-      name: req.body.name,
-      email: req.body.email,
-      age: req.body.age,
+      ...req.body
     });
 
     // TO CREATE THE USERS IN BULK AMOUNT USE bulkCreate() method.
@@ -56,7 +55,7 @@ const findAllUser = async (req, res) => {
 
     //Find All the users by changing column name or getting limited amount of columns
     let data = await Users.findAll({
-      attributes: ["name", "email", ["age", "user_age"]],
+      attributes: ["name", "email", ["age", "user_age"],"uuid"],
     });
 
     //Find the total no of email of Users in the db by using functions
@@ -236,6 +235,30 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const oneToOne=async(req,res)=>{
+  try{
+    let oneToOneDetail=await Users.findAll({
+      include:[{
+        model:Posts,
+        attributes:['id','title','body']
+      }],
+      where:{
+        name:req.body.name,
+      }
+    });
+     res.status(200).json({
+        "message":"Post And User Details",
+        data:oneToOneDetail,
+     })
+  }catch(error){
+    console.log(error);
+    res.status(400).send({
+      "message":"Error has occured",
+      error,
+    })
+  }
+}
+
 module.exports = {
   home,
   createUser,
@@ -244,5 +267,6 @@ module.exports = {
   findAllUser,
   findData,
   setterGetter,
-  rawQuery
+  rawQuery,
+  oneToOne
 };

@@ -4,7 +4,7 @@ const secrets=require('../../secrets');
 const sequelize = new Sequelize(secrets.database, secrets.username, secrets.password, {
   host: secrets.host,
   dialect: "postgres",
-  logging:false
+  logging:true
 });
 
 sequelize.authenticate().then(() => {
@@ -17,6 +17,10 @@ let db={};
 db.Sequelize=Sequelize;
 db.sequelize=sequelize;
 db.users=require('../models/userModels')(sequelize,DataTypes);
+db.posts=require('../models/postsModels')(sequelize,DataTypes);
+
+db.users.hasOne(db.posts,{foreignKey:'user_id'});
+db.posts.belongsTo(db.users,{foreignKey:'user_id'});
 
 db.sequelize.sync({force:false}).then(()=>{
   console.log("Database has been synced");
